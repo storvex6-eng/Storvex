@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate , Link } from 'react-router-dom';
+import { LockIcon, MailIcon, UserIcon } from 'lucide-react';
 import { Input } from '../components/ui/Input';
 import { Button } from '../components/ui/Button';
+import { useApp } from '../context/AppContext';
 
-import {
-  User as UserIcon,
-  Mail as MailIcon,
-  Lock as LockIcon,
-} from 'lucide-react';
 
 const Login = ({ mode = "login" }) => {
 
   const isRegister = mode === "register";
   const navigate = useNavigate()
+  const {login, register} = useApp()
 
   const [form, setForm] = useState({ name: "", email: "", password: "" })
   const [isLoading, setIsLoading] = useState(false);
 
   const updateField = (key, value) => setForm((prev) => ({ ...prev, [key]: value }));
 
-  const handleSubmit = async (e) => {
-
+ const handleSubmit = async (e)=>{
+    e.preventDefault();
+    setIsLoading(true)
+    const ok = isRegister ? await register(form.name, form.email, form.password) : await login(form.email, form.password);
+    setIsLoading(false)
+    if(ok) navigate("/")
   }
 
   return (
