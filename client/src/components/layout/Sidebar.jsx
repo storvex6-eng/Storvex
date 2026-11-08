@@ -8,7 +8,7 @@ import { formatBytes } from '../../assets/assets'
 import { useDrive } from '../../hooks/useDrive'
 
 const Sidebar = ({ onCreateFolderClick, isMobileOpen, setIsMobileOpen }) => {
-    const { isUploading, uploadFiles } = useDrive
+    const { isUploading, uploadFiles } = useDrive()
     const { user, currentFolderId } = useApp()
     const location = useLocation()
     const fileInputRef = useRef(null)

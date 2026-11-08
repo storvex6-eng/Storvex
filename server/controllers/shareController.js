@@ -51,8 +51,7 @@ AND owner_id = ${req.user.id}`;
         const [shareLink] = await sql`
 INSERT INTO share_links (token, resource_type, resource_id, owner_id,
 permission, expires_at)
-VALUES (${token}, ${resourceType}, ${resource.id}, ${req.user.id}, $
-{permission}, ${targetExpiresAt ? new Date(targetExpiresAt) : null})
+VALUES (${token}, ${resourceType}, ${resource.id}, ${req.user.id}, ${permission}, ${targetExpiresAt ? new Date(targetExpiresAt) : null})
 RETURNING *
 `;
 
